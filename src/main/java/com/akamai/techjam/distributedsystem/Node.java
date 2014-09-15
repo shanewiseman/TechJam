@@ -78,7 +78,7 @@ public class Node {
 		this.id = id;
 		nodes = Lists.newArrayList(this.id);
 		cache = new HashMap<String, String>();		
-		nodes.add(id);
+//		nodes.add(id);
 		//distribution.put(id, new AtomicInteger());
 		hash = new RendezvousHash(hfunc, strFunnel, strFunnel, nodes);
 	}
