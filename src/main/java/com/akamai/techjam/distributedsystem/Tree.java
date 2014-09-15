@@ -30,32 +30,38 @@ public class Tree {
 		
 		this.structure = new treeNode[ (xNodes.length + yNodes.length) ];
 		
-		int xCounter = 0;
+		int xCounter = 1;
 		int yCounter = 0;	
 		float branch = 1;
 		
+		
+		this.structure[0] = new treeNode(0, xNodes[0]);
+		
 		for( float index = 1; index < (xNodes.length + yNodes.length ); index++ ){
+			System.out.println(Float.toString(index));
 			
 			branch = index;
 			
-			while( branch != 1 || branch != 2){
+			while (branch != 1.0 && branch != 2.0 ){
 				branch = Math.round( (branch / 2 ) - 1);
 			}
-		
-			if( branch == 1 ){
+			
+			if( branch == 1 || yCounter >= yNodes.length){
 				if( xCounter < xNodes.length ){
 					this.structure[ (int)(index) ] = new treeNode( ( Math.round( index /2 ) - 1 ), xNodes[xCounter] );
-					this.structure[ ( Math.round( branch / 2 ) - 1) ].left = this.structure[(int)(index)];
+					this.structure[ ( Math.round( index / 2 ) - 1) ].left = this.structure[(int)(index)];
 					xCounter++;
-					
-				}
+				} 
+				
 
-			} else if ( branch == 2){
+			}
+			if ( branch == 2 || xCounter >= xNodes.length  ){
 				if(yCounter < yNodes.length){
 					this.structure[ (int)(index) ] = new treeNode( (Math.round( index /2 ) - 1 ), yNodes[yCounter] );
 					yCounter++;
 				}
 			}
+	
 		}
 		
 	}
@@ -75,6 +81,7 @@ public class Tree {
 //##############################################################################
 //##############################################################################
 class treeNode {
+	
 	public int      id;
 	public int      parent;
 	public treeNode left;
