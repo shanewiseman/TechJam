@@ -2,14 +2,14 @@ package com.akamai.techjam.distributedsystem;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.TimeUnit;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.google.common.hash.Funnel;
 import com.google.common.hash.Funnels;
 import com.google.common.hash.HashFunction;
@@ -22,7 +22,7 @@ public class Node {
 	
 	String id;
 	RendezvousHash<String, String> hash;
-	Map<String, String> cache;
+	LoadingCache cache;
 	//Map<String, AtomicInteger> distribution = Maps.newHashMap();
 	ArrayList<String> nodes;
 	
@@ -31,7 +31,7 @@ public class Node {
 		initNode(id);
 	}
 	
-	public Map<String, String> getCache() {
+	public LoadingCache getCache() {
 		return cache;
 	}
 	
@@ -41,14 +41,6 @@ public class Node {
 	
 	public String get(String key) {
 		String nodeString = hash.get(key);
-//		if (cache.get(id).equals("cached") || cache.get(id).equals("forwaded")) {
-//			
-//		}
-		if (nodeString.equals(id)) {
-			cache.put(id, "cached");
-		} else {
-			cache.put(id, "forwarded");
-		}
 		return nodeString;
 	}
 	
@@ -77,8 +69,16 @@ public class Node {
 	private void initNode(String id) {	
 		this.id = id;
 		nodes = Lists.newArrayList(this.id);
-		cache = new HashMap<String, String>();		
-//		nodes.add(id);
+		cache = CacheBuilder.newBuilder()
+                .maximumSize(100)
+                .expireAfterWrite(10, TimeUnit.MINUTES)
+                .build(new CacheLoader<String, String>() {
+                    @Override
+                    public String load(String key) throws Exception {
+                        return key;
+                    }
+                });
+		nodes.add(id);
 		//distribution.put(id, new AtomicInteger());
 		hash = new RendezvousHash(hfunc, strFunnel, strFunnel, nodes);
 	}

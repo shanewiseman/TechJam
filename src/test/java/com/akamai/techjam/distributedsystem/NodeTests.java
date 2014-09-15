@@ -1,14 +1,9 @@
 package com.akamai.techjam.distributedsystem;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import com.akamai.techjam.distributedsystem.RendezvousHash;
-import com.google.common.collect.Sets;
-import com.google.common.hash.AlwaysOneHashFunction;
 import com.google.common.hash.Funnel;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
@@ -75,27 +70,27 @@ public class NodeTests {
 	/**
 	 * Ensure the same node returned for same key after a large change to the pool of nodes
 	 */
-	@Test
-	public void testCache() {
-	
-		Node node1 = new Node("Node01");		
-		Node node2 = new Node("Node02");
-		Node node3 = new Node("Node03");
-		
-		ArrayList<Node> nodes = new ArrayList<Node>();
-		nodes.add(node2);
-		nodes.add(node3);
-		node1.addNodes(nodes);
-		
-		System.out.println(node1.getCache().get(node1.getId()));		
-		System.out.println(node1.get("ENdri"));
-		System.out.println(node1.getCache().get(node1.getId()));
-		System.out.println(node1.get("ENdri"));
-		System.out.println(node1.getCache().get(node1.getId()));
-		
-		System.out.println(node2.get("ENdri"));
-		System.out.println(node2.getCache().get(node2.getId()));
-	}
+//	@Test
+//	public void testCache() {
+//
+//		Node node1 = new Node("Node01");
+//		Node node2 = new Node("Node02");
+//		Node node3 = new Node("Node03");
+//
+//		ArrayList<Node> nodes = new ArrayList<Node>();
+//		nodes.add(node2);
+//		nodes.add(node3);
+//		node1.addNodes(nodes);
+//
+//		System.out.println(node1.getCache().get(node1.getId()));
+//		System.out.println(node1.get("ENdri"));
+//		System.out.println(node1.getCache().get(node1.getId()));
+//		System.out.println(node1.get("ENdri"));
+//		System.out.println(node1.getCache().get(node1.getId()));
+//
+//		System.out.println(node2.get("ENdri"));
+//		System.out.println(node2.getCache().get(node2.getId()));
+//	}
 	
 	@Test
 	public void testTree() {
