@@ -27,7 +27,7 @@ public class NodeTests {
 	 * Ensure the same node returned for same key after a large change to the pool of nodes
 	 */
 	@Test
-	public void testConsistentAfterRemove() {
+	public void testHash() {
 		
 		Node node1 = new Node("Node01");		
 		Node node2 = new Node("Node02");
@@ -70,6 +70,50 @@ public class NodeTests {
 //		node1.getHash().add("Node16");
 //		
 //		System.out.println(node1.getHash().get("Brian"));
+	}
+	
+	/**
+	 * Ensure the same node returned for same key after a large change to the pool of nodes
+	 */
+	@Test
+	public void testCache() {
+	
+		Node node1 = new Node("Node01");		
+		Node node2 = new Node("Node02");
+		Node node3 = new Node("Node03");
+		
+		ArrayList<Node> nodes = new ArrayList<Node>();
+		nodes.add(node2);
+		nodes.add(node3);
+		node1.addNodes(nodes);
+		
+		System.out.println(node1.getCache().get(node1.getId()));		
+		System.out.println(node1.get("ENdri"));
+		System.out.println(node1.getCache().get(node1.getId()));
+		System.out.println(node1.get("ENdri"));
+		System.out.println(node1.getCache().get(node1.getId()));
+		
+		System.out.println(node2.get("ENdri"));
+		System.out.println(node2.getCache().get(node2.getId()));
+	}
+	
+	@Test
+	public void testTree() {
+		
+		Node[] node1 = new Node[1];
+		node1[0] = new Node("Node01");
+		Node[] node2 = new Node[1];
+		node2[0] = new Node("Node02");
+		Node[] node3 = new Node[1];
+		node3[0] = new Node("Node03");
+		
+		Tree tree = new Tree(node1, node2);
+		Node[] nodes = tree.returnNodes();
+		
+		for (int i = 0; i < nodes.length - 1; i++) {
+			System.out.println(nodes[i].getId());
+			//System.out.println(nodes[i].get("ENdri"));
+		}
 	}
 	
 }

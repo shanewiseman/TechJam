@@ -3,6 +3,7 @@ package com.akamai.techjam.distributedsystem;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -22,15 +23,12 @@ public class Node {
 	String id;
 	RendezvousHash<String, String> hash;
 	Map<String, String> cache;
-	Map<String, AtomicInteger> distribution = Maps.newHashMap();
-	List<String> nodes;
+	//Map<String, AtomicInteger> distribution = Maps.newHashMap();
+	ArrayList<String> nodes;
 	
 	
 	public Node (String id) {	
-		this.id = id;
-		nodes = Lists.newArrayList(this.id);
-		cache = new HashMap<String, String>();
-		hash = new RendezvousHash(hfunc, strFunnel, strFunnel, getNodes(distribution));
+		initNode(id);
 	}
 	
 	public Map<String, String> getCache() {
@@ -41,6 +39,19 @@ public class Node {
 		return hash;
 	}
 	
+	public String get(String key) {
+		String nodeString = hash.get(key);
+//		if (cache.get(id).equals("cached") || cache.get(id).equals("forwaded")) {
+//			
+//		}
+		if (nodeString.equals(id)) {
+			cache.put(id, "cached");
+		} else {
+			cache.put(id, "forwarded");
+		}
+		return nodeString;
+	}
+	
 	public String getId() {
 		return id;
 	}
@@ -49,19 +60,30 @@ public class Node {
 		return nodes;
 	}
 	
-	public void addNode(String node) {
-		nodes.add(node);
-		distribution.put(node, new AtomicInteger());
+	public void addNodes(ArrayList<Node> currentNodes) {
+		
+		Iterator<Node> iter = currentNodes.iterator();
+		while(iter.hasNext()) {
+			Node node = iter.next();
+			if (!node.getId().equals(id)) {
+				nodes.add(node.getId());
+			}
+			//distribution.put(node.getId(), new AtomicInteger());
+		}
+
 		hash = new RendezvousHash(hfunc, strFunnel, strFunnel, nodes);	
 	}
 	
-	private List<String> getNodes(Map<String, AtomicInteger> distribution) {		
+	private void initNode(String id) {	
+		this.id = id;
+		nodes = Lists.newArrayList(this.id);
+		cache = new HashMap<String, String>();		
 		nodes.add(id);
-		distribution.put(id, new AtomicInteger());
-		return nodes;
+		//distribution.put(id, new AtomicInteger());
+		hash = new RendezvousHash(hfunc, strFunnel, strFunnel, nodes);
 	}
 	
-	public Map<String, AtomicInteger> getDistribution() {
-		return distribution;
-	}
+//	public Map<String, AtomicInteger> getDistribution() {
+//		return distribution;
+//	}
 }
