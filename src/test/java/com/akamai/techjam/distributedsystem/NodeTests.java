@@ -101,18 +101,46 @@ public class NodeTests {
 	public void testTree() {
 		
 		Node[] node1 = new Node[1];
+//		for (int i = 0; i < 10; i ++) {
+//			node1[i] = new Node("Node0" + i);
+//		}
 		node1[0] = new Node("Node01");
 		Node[] node2 = new Node[1];
+//		for (int i = 0; i < 10; i ++) {
+//			node2[i] = new Node("Node2" + i);
+//		}
 		node2[0] = new Node("Node02");
 		Node[] node3 = new Node[1];
+//		for (int i = 0; i < 10; i ++) {
+//			node3[i] = new Node("Node3" + i);
+//		}
 		node3[0] = new Node("Node03");
 		
 		Tree tree = new Tree(node1, node2);
 		Node[] nodes = tree.returnNodes();
 		
-		for (int i = 0; i < nodes.length - 1; i++) {
-			System.out.println(nodes[i].getId());
-			//System.out.println(nodes[i].get("ENdri"));
+		for (int i = 0; i < nodes.length; i++) {
+//			//System.out.println(nodes[i].getId());
+			System.out.println(nodes[i].getNodes());
+			System.out.println("Shane = " + nodes[i].get("Shane"));
+//			//System.out.println(nodes[i].get("ENdri"));
+		}
+		
+		ArrayList<Node> nodeList = new ArrayList<Node>();
+		nodeList.add(nodes[0]);
+		nodeList.add(nodes[1]);
+		node1[0].addNodes(nodeList);
+		node2[0].addNodes(nodeList);
+		
+		System.out.println("Shane = " + nodes[0].get("Shane"));
+		System.out.println("Shane = " + nodes[1].get("Shane"));
+		
+		for (int i = 0; i < node1.length; i++) {
+			System.out.println(node1[0].getNodes());
+		}
+		
+		for (int i = 0; i < node1.length; i++) {
+			System.out.println(node1[0].getNodes());
 		}
 	}
 	
