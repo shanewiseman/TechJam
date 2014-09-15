@@ -31,17 +31,45 @@ public class NodeTests {
 		
 		Node node1 = new Node("Node01");		
 		Node node2 = new Node("Node02");
-
-		node1.addNode(node2.getId());
-		node2.addNode(node1.getId());
-		node2.addNode("what");
-		node2.addNode("Node012");
+		Node node3 = new Node("Node03");
+		Node node4 = new Node("Node04");
+		Node node5 = new Node("Node05");
+		Node node6 = new Node("Node06");
 		
+		node1.getHash().add(node2.getId());
+		node1.getHash().add(node3.getId());
+		node1.getHash().add(node4.getId());
+		node1.getHash().add(node5.getId());
+		node1.getHash().add(node6.getId());
 		
-		System.out.println("Node01 = " + node1.getHash().get("Node01"));
-		System.out.println("Node02 = " + node2.getHash().get("Node02"));
-		System.out.println("Node012 = " + node1.getHash().get("Node012"));
+		node2.getHash().add(node5.getId());
+		node2.getHash().add(node6.getId());
 		
+//		System.out.println(node1.getHash().get("Harish"));
+//		System.out.println(node1.getHash().get("Endri"));
+//		System.out.println(node1.getHash().get("Shane"));
+//		System.out.println(node1.getHash().get("Brian"));
+		
+		for (int i=0; i<=10; i++) {
+			System.out.println(node1.getHash().get(String.valueOf(i)));
+		}
+		System.out.println("---------------------------------");
+		for (int i=0; i<=10; i++) {
+			System.out.println(node2.getHash().get(String.valueOf(i)));
+		}
+		
+//		node1.getHash().add("Node07");
+//		node1.getHash().add("Node08");
+//		node1.getHash().add("Node09");
+//		node1.getHash().add("Node10");
+//		node1.getHash().add("Node11");
+//		node1.getHash().add("Node12");
+//		node1.getHash().add("Node13");
+//		node1.getHash().add("Node14");
+//		node1.getHash().add("Node15");
+//		node1.getHash().add("Node16");
+//		
+//		System.out.println(node1.getHash().get("Brian"));
 	}
 	
 }
