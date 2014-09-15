@@ -14,14 +14,15 @@ public class Tree {
 		
 		this.structure[0] = new treeNode(0, nodes[0]);
 		
-		for(float index = 1; index < nodes.length; index++){
+		for(int index = 1; index < nodes.length; index++){
+			float nodeFind = index;
 			
-			this.structure[ (int)(index) ] = new treeNode( (int)Math.round( ( index / 2  ) - 1 ), nodes[(int)(index)] );
+			this.structure[ index ] = new treeNode( (int)Math.round( ( nodeFind / 2  ) - 1 ), nodes[index] );
 			
 			if( (index % 2) == 0 )
-				this.structure[ Math.round(( index / 2 ) - 1) ].right = this.structure[ (int)(index) ];
+				this.structure[ Math.round(( nodeFind / 2 ) - 1) ].right = this.structure[ index ];
 			else 
-				this.structure[ Math.round(( index / 2 ) - 1) ].left = this.structure[ (int)(index) ];
+				this.structure[ Math.round(( nodeFind / 2 ) - 1) ].left = this.structure[ index ];
 		}
 	}
 //##############################################################################
@@ -34,31 +35,31 @@ public class Tree {
 		int yCounter = 0;	
 		float branch = 1;
 		
-		
 		this.structure[0] = new treeNode(0, xNodes[0]);
 		
-		for( float index = 1; index < (xNodes.length + yNodes.length ); index++ ){
-			System.out.println(Float.toString(index));
-			
+		for( int index = 1; index < (xNodes.length + yNodes.length ); index++ ){
 			branch = index;
-			
-			while (branch != 1.0 && branch != 2.0 ){
+			float nodeFind = index;
+
+			while ( branch != 1 && (int)branch != 2 ){
 				branch = Math.round( (branch / 2 ) - 1);
 			}
 			
-			if( branch == 1 || yCounter >= yNodes.length){
+			if( (int)branch == 1 || yCounter >= yNodes.length){
 				if( xCounter < xNodes.length ){
-					this.structure[ (int)(index) ] = new treeNode( ( Math.round( index /2 ) - 1 ), xNodes[xCounter] );
-					this.structure[ ( Math.round( index / 2 ) - 1) ].left = this.structure[(int)(index)];
+					this.structure[ index ] = new treeNode( ( Math.round( nodeFind /2 ) - 1 ), xNodes[xCounter] );
+					this.structure[ ( Math.round( nodeFind / 2 ) - 1) ].left = this.structure[index ];
 					xCounter++;
+					continue;	
 				} 
 				
 
 			}
-			if ( branch == 2 || xCounter >= xNodes.length  ){
+			if ( (int)branch == 2 || (xCounter >= xNodes.length)  ){
 				if(yCounter < yNodes.length){
-					this.structure[ (int)(index) ] = new treeNode( (Math.round( index /2 ) - 1 ), yNodes[yCounter] );
+					this.structure[ index ] = new treeNode( (Math.round( nodeFind / 2 ) - 1 ), yNodes[yCounter] );
 					yCounter++;
+					continue;
 				}
 			}
 	
