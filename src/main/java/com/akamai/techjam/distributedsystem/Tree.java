@@ -15,7 +15,7 @@ public class Tree {
 	Node       primaryNode;
 	int        primaryNodeIndex;
 	
-	public Tree (Node [] nodes, Node primary){
+	public Tree (Node [] nodes, Node primary, treeNode globalMap){
 		
 		this.structure = new treeNode[ nodes.length ];
 		
@@ -37,7 +37,7 @@ public class Tree {
 				this.structure[ Math.round(( nodeFind / 2 ) - 1) ].left = this.structure[ index ];
 		}
 		
-		this.initStructure = this.structure;
+		this.initStructure = globalMap;
 		this.primaryNode   = primary;
 	}
 //##############################################################################
@@ -102,38 +102,34 @@ public class Tree {
 		
 		
 		double value = Math.pow(2,this.mergeInterval);
-		System.out.println(Integer.toString((int)value));
-		
 		
 		if( (int)value > this.initStructure.length  ){
 			
 			if( this.primaryNodeIndex == 0  ){
-				System.out.println("HERE1");
-				return this.mergingStruct[ this.mergingStruct.length ].node; 
+				return this.mergingStruct[ (this.mergingStruct.length) ].node; 
 			}
 			
 			this.mergeInterval = 1;
-			System.out.println("HERE2");
 			return this.primaryNode; 
 		}
 		
-		
 		this.mergeInterval++;
-		System.out.println((((int)value)));
+
 		if( this.primaryNodeIndex % (((int)value)) == 0 ){
-			System.out.println("HERE3");
 			
 			if( this.mergingStruct.length >= (this.primaryNodeIndex + value ) ){
 					
-				System.out.println(( this.primaryNodeIndex + (int)value) - 1);
+				//System.out.println(( this.primaryNodeIndex + (int)value) - 1);
 				return this.mergingStruct[( this.primaryNodeIndex + (int)value) - 1].node;
 			} else {
 				return this.mergingStruct[ this.primaryNodeIndex - 1].node;
 			}
 		}
-		System.out.println("HERE4");
+		
 		return this.primaryNode;
 	}
+//##############################################################################
+//##############################################################################	
 	public void deletePeer(Node node){
 		
 		treeNode [] tempStruct = new treeNode[ this.mergingStruct.length - 1 ];
