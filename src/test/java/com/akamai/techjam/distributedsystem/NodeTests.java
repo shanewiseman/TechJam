@@ -1,5 +1,6 @@
 package com.akamai.techjam.distributedsystem;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import org.junit.Test;
@@ -111,32 +112,32 @@ public class NodeTests {
 //		}
 		node3[0] = new Node("Node03");
 		
-		Tree tree = new Tree(node1, node2);
-		Node[] nodes = tree.returnNodes();
+//		Tree tree = new Tree(node1, node2);
+//		Node[] nodes = tree.returnNodes();
 		
-		for (int i = 0; i < nodes.length; i++) {
-//			//System.out.println(nodes[i].getId());
-			System.out.println(nodes[i].getNodes());
-			System.out.println("Shane = " + nodes[i].get("Shane"));
-//			//System.out.println(nodes[i].get("ENdri"));
-		}
-		
-		ArrayList<Node> nodeList = new ArrayList<Node>();
-		nodeList.add(nodes[0]);
-		nodeList.add(nodes[1]);
-		node1[0].addNodes(nodeList);
-		node2[0].addNodes(nodeList);
-		
-		System.out.println("Shane = " + nodes[0].get("Shane"));
-		System.out.println("Shane = " + nodes[1].get("Shane"));
-		
-		for (int i = 0; i < node1.length; i++) {
-			System.out.println(node1[0].getNodes());
-		}
-		
-		for (int i = 0; i < node1.length; i++) {
-			System.out.println(node1[0].getNodes());
-		}
+//		for (int i = 0; i < nodes.length; i++) {
+////			//System.out.println(nodes[i].getId());
+//			System.out.println(nodes[i].getNodes());
+//			System.out.println("Shane = " + nodes[i].get("Shane"));
+////			//System.out.println(nodes[i].get("ENdri"));
+//		}
+//		
+//		ArrayList<Node> nodeList = new ArrayList<Node>();
+//		nodeList.add(nodes[0]);
+//		nodeList.add(nodes[1]);
+//		node1[0].addNodes(nodeList);
+//		node2[0].addNodes(nodeList);
+//		
+//		System.out.println("Shane = " + nodes[0].get("Shane"));
+//		System.out.println("Shane = " + nodes[1].get("Shane"));
+//		
+//		for (int i = 0; i < node1.length; i++) {
+//			System.out.println(node1[0].getNodes());
+//		}
+//		
+//		for (int i = 0; i < node1.length; i++) {
+//			System.out.println(node1[0].getNodes());
+//		}
 	}
 	
 }

@@ -19,11 +19,11 @@ public class TreeTests {
 			nodes[i] = new Node("test");
 		}
 		
-		Tree tree = new Tree(nodes);
-			
-		for( int i = 0; i < tree.structure.length; i++){
-			System.out.println(tree.structure[i].id);
-		}
+//		Tree tree = new Tree(nodes);
+//			
+//		for( int i = 0; i < tree.structure.length; i++){
+//			System.out.println(tree.structure[i].id);
+//		}
 		
 		System.out.println("-----DONE-------");
 	}
@@ -38,14 +38,14 @@ public class TreeTests {
 			nodes2[i] = new Node(Integer.toString(i) + " 2");
 		}
 		
-		Tree tree = new Tree(nodes,nodes2);
-
-		System.out.println(tree.structure.length);
-		for( int i = 0; i < tree.structure.length; i++){
-			
-			System.out.println(Integer.toString(i) + " " + tree.structure[i]);
-			//System.out.println(tree.structure[i + 1].parent.id);
-		}
+//		Tree tree = new Tree(nodes,nodes2);
+//
+//		System.out.println(tree.structure.length);
+//		for( int i = 0; i < tree.structure.length; i++){
+//			
+//			System.out.println(Integer.toString(i) + " " + tree.structure[i]);
+//			//System.out.println(tree.structure[i + 1].parent.id);
+//		}
 		System.out.println("-----DONE-------");
 	}		
 
