@@ -2,13 +2,20 @@ package com.akamai.techjam.distributedsystem;
 
 
 
+
 //##############################################################################
 //##############################################################################
 public class Tree {
 	
-	treeNode[] structure;
+	private treeNode[] initStructure;
+	public treeNode[] structure;
+	private treeNode[] mergingStruct;
+	private int mergeInterval = 1;
 	
-	public Tree (Node [] nodes){
+	Node       primaryNode;
+	int        primaryNodeIndex;
+	
+	public Tree (Node [] nodes, Node primary){
 		
 		this.structure = new treeNode[ nodes.length ];
 		
@@ -17,6 +24,11 @@ public class Tree {
 		for(int index = 1; index < nodes.length; index++){
 			float nodeFind = index;
 			
+			if( nodes[index].id == primary.id){
+				this.primaryNodeIndex = index;
+			}
+			
+			
 			this.structure[ index ] = new treeNode( (int)Math.round( ( nodeFind / 2  ) - 1 ), nodes[index] );
 			
 			if( (index % 2) == 0 )
@@ -24,10 +36,13 @@ public class Tree {
 			else 
 				this.structure[ Math.round(( nodeFind / 2 ) - 1) ].left = this.structure[ index ];
 		}
+		
+		this.initStructure = this.structure;
+		this.primaryNode   = primary;
 	}
 //##############################################################################
 //##############################################################################	
-	public Tree( Node [] xNodes, Node [] yNodes){
+	public void Merge( Node [] xNodes, Node [] yNodes){
 		
 		this.structure = new treeNode[ (xNodes.length + yNodes.length) ];
 		
@@ -77,7 +92,59 @@ public class Tree {
 		
 		return returnNodes;
 	}
-	
+//##############################################################################	
+//##############################################################################
+	public Node digestPeeringPeer (){
+		
+		if( this.mergeInterval == 1){
+			this.mergingStruct = this.initStructure;
+		}
+		
+		
+		double value = Math.pow(2,this.mergeInterval);
+		System.out.println(Integer.toString((int)value));
+		
+		
+		if( (int)value > this.initStructure.length  ){
+			
+			if( this.primaryNodeIndex == 0  ){
+				System.out.println("HERE1");
+				return this.mergingStruct[ this.mergingStruct.length ].node; 
+			}
+			
+			this.mergeInterval = 1;
+			System.out.println("HERE2");
+			return this.primaryNode; 
+		}
+		
+		
+		this.mergeInterval++;
+		System.out.println((((int)value)));
+		if( this.primaryNodeIndex % (((int)value)) == 0 ){
+			System.out.println("HERE3");
+			
+			if( this.mergingStruct.length >= (this.primaryNodeIndex + value ) ){
+					
+				System.out.println(( this.primaryNodeIndex + (int)value) - 1);
+				return this.mergingStruct[( this.primaryNodeIndex + (int)value) - 1].node;
+			} else {
+				return this.mergingStruct[ this.primaryNodeIndex - 1].node;
+			}
+		}
+		System.out.println("HERE4");
+		return this.primaryNode;
+	}
+	public void deletePeer(Node node){
+		
+		treeNode [] tempStruct = new treeNode[ this.mergingStruct.length - 1 ];
+		
+		for( int i = 0; i < this.mergingStruct.length; i++){
+			if( mergingStruct[i].node.id != node.id){
+				tempStruct[i] = mergingStruct[i];
+			}
+		}
+		mergingStruct = tempStruct;
+	}
 }
 //##############################################################################
 //##############################################################################
