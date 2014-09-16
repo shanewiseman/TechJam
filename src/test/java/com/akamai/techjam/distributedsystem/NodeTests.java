@@ -1,14 +1,9 @@
 package com.akamai.techjam.distributedsystem;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-import org.junit.Assert;
 import org.junit.Test;
 
-import com.akamai.techjam.distributedsystem.RendezvousHash;
-import com.google.common.collect.Sets;
-import com.google.common.hash.AlwaysOneHashFunction;
 import com.google.common.hash.Funnel;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
@@ -75,44 +70,72 @@ public class NodeTests {
 	/**
 	 * Ensure the same node returned for same key after a large change to the pool of nodes
 	 */
-	@Test
-	public void testCache() {
-	
-		Node node1 = new Node("Node01");		
-		Node node2 = new Node("Node02");
-		Node node3 = new Node("Node03");
-		
-		ArrayList<Node> nodes = new ArrayList<Node>();
-		nodes.add(node2);
-		nodes.add(node3);
-		node1.addNodes(nodes);
-		
-		System.out.println(node1.getCache().get(node1.getId()));		
-		System.out.println(node1.get("ENdri"));
-		System.out.println(node1.getCache().get(node1.getId()));
-		System.out.println(node1.get("ENdri"));
-		System.out.println(node1.getCache().get(node1.getId()));
-		
-		System.out.println(node2.get("ENdri"));
-		System.out.println(node2.getCache().get(node2.getId()));
-	}
+//	@Test
+//	public void testCache() {
+//
+//		Node node1 = new Node("Node01");
+//		Node node2 = new Node("Node02");
+//		Node node3 = new Node("Node03");
+//
+//		ArrayList<Node> nodes = new ArrayList<Node>();
+//		nodes.add(node2);
+//		nodes.add(node3);
+//		node1.addNodes(nodes);
+//
+//		System.out.println(node1.getCache().get(node1.getId()));
+//		System.out.println(node1.get("ENdri"));
+//		System.out.println(node1.getCache().get(node1.getId()));
+//		System.out.println(node1.get("ENdri"));
+//		System.out.println(node1.getCache().get(node1.getId()));
+//
+//		System.out.println(node2.get("ENdri"));
+//		System.out.println(node2.getCache().get(node2.getId()));
+//	}
 	
 	@Test
 	public void testTree() {
 		
 		Node[] node1 = new Node[1];
+//		for (int i = 0; i < 10; i ++) {
+//			node1[i] = new Node("Node0" + i);
+//		}
 		node1[0] = new Node("Node01");
 		Node[] node2 = new Node[1];
+//		for (int i = 0; i < 10; i ++) {
+//			node2[i] = new Node("Node2" + i);
+//		}
 		node2[0] = new Node("Node02");
 		Node[] node3 = new Node[1];
+//		for (int i = 0; i < 10; i ++) {
+//			node3[i] = new Node("Node3" + i);
+//		}
 		node3[0] = new Node("Node03");
 		
 		Tree tree = new Tree(node1, node2);
 		Node[] nodes = tree.returnNodes();
 		
-		for (int i = 0; i < nodes.length - 1; i++) {
-			System.out.println(nodes[i].getId());
-			//System.out.println(nodes[i].get("ENdri"));
+		for (int i = 0; i < nodes.length; i++) {
+//			//System.out.println(nodes[i].getId());
+			System.out.println(nodes[i].getNodes());
+			System.out.println("Shane = " + nodes[i].get("Shane"));
+//			//System.out.println(nodes[i].get("ENdri"));
+		}
+		
+		ArrayList<Node> nodeList = new ArrayList<Node>();
+		nodeList.add(nodes[0]);
+		nodeList.add(nodes[1]);
+		node1[0].addNodes(nodeList);
+		node2[0].addNodes(nodeList);
+		
+		System.out.println("Shane = " + nodes[0].get("Shane"));
+		System.out.println("Shane = " + nodes[1].get("Shane"));
+		
+		for (int i = 0; i < node1.length; i++) {
+			System.out.println(node1[0].getNodes());
+		}
+		
+		for (int i = 0; i < node1.length; i++) {
+			System.out.println(node1[0].getNodes());
 		}
 	}
 	
