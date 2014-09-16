@@ -15,19 +15,14 @@ public class Tree {
 	Node       primaryNode;
 	int        primaryNodeIndex;
 	
-	public Tree (Node [] nodes, Node primary, treeNode globalMap){
-		
+	
+	public Tree ( Node[] nodes){
 		this.structure = new treeNode[ nodes.length ];
 		
 		this.structure[0] = new treeNode(0, nodes[0]);
 		
 		for(int index = 1; index < nodes.length; index++){
 			float nodeFind = index;
-			
-			if( nodes[index].id == primary.id){
-				this.primaryNodeIndex = index;
-			}
-			
 			
 			this.structure[ index ] = new treeNode( (int)Math.round( ( nodeFind / 2  ) - 1 ), nodes[index] );
 			
@@ -37,8 +32,30 @@ public class Tree {
 				this.structure[ Math.round(( nodeFind / 2 ) - 1) ].left = this.structure[ index ];
 		}
 		
+	}
+	
+	
+	public Tree (Node [] nodes, int primaryid, treeNode[] globalMap){
+		
+		this.structure = new treeNode[ nodes.length ];
+		
+		this.structure[0] = new treeNode(0, nodes[0]);
+		
+		for(int index = 1; index < nodes.length; index++){
+			float nodeFind = index;
+			
+
+			this.structure[ index ] = new treeNode( (int)Math.round( ( nodeFind / 2  ) - 1 ), nodes[index] );
+			
+			if( (index % 2) == 0 )
+				this.structure[ Math.round(( nodeFind / 2 ) - 1) ].right = this.structure[ index ];
+			else 
+				this.structure[ Math.round(( nodeFind / 2 ) - 1) ].left = this.structure[ index ];
+		}
+		
+		this.primaryNodeIndex = primaryid;
 		this.initStructure = globalMap;
-		this.primaryNode   = primary;
+		this.primaryNode   = nodes[0];
 	}
 //##############################################################################
 //##############################################################################	
@@ -103,9 +120,12 @@ public class Tree {
 		
 		double value = Math.pow(2,this.mergeInterval);
 		
+		//System.out.println("DEBUG1: " + (int) value );
+		
+		
 		if( (int)value > this.initStructure.length  ){
 			
-			if( this.primaryNodeIndex == 0  ){
+			if( this.primaryNodeIndex == this.mergingStruct[0].id  ){
 				return this.mergingStruct[ (this.mergingStruct.length) ].node; 
 			}
 			
@@ -114,7 +134,9 @@ public class Tree {
 		}
 		
 		this.mergeInterval++;
-
+		
+		//System.out.println("DEBUG2: " + this.primaryNodeIndex );
+		
 		if( this.primaryNodeIndex % (((int)value)) == 0 ){
 			
 			if( this.mergingStruct.length >= (this.primaryNodeIndex + value ) ){

@@ -21,22 +21,35 @@ public class TreeTests {
 		Tree[] trees = new Tree[10];
 		for(int i = 0; i < 10; i++ ){
 			nodes[i] = new Node(Integer.toString(i));
+		}
+		
+		Tree globalMap = new Tree(nodes);
 			
+		for(int i = 0; i < 10; i++ ){	
 			Node[] temp = new Node[1];
 			temp[0] = nodes[i];
 			
-			trees[i] = new Tree(temp, nodes[i]);
+			trees[i] = new Tree(temp, i , globalMap.structure);
 		}
 		
 		
-		for(int i = 0; i < 10; i++ ){
-			System.out.println(trees[i].digestPeeringPeer().id);
+		for(int j = 0; j < 10; j++ ){
+			System.out.println( trees[j].digestPeeringPeer().id);
+		}
+		trees[1].deletePeer(nodes[1]);
+		System.out.println("");
+		for(int j = 0; j < 10; j++ ){
+			System.out.println( trees[j].digestPeeringPeer().id);
+		}
+		System.out.println("");
+		for(int j = 0; j < 10; j++ ){
+			System.out.println( trees[j].digestPeeringPeer().id);
 		}
 		
 	}
 	
 	
-	
+/**	
 	
 	@Test
 	public  void testOneArrayConstructor(){
@@ -46,15 +59,23 @@ public class TreeTests {
 			nodes[i] = new Node("test");
 		}
 		
+
 		Tree tree = new Tree(nodes, nodes[0]);
 			
 		for( int i = 0; i < tree.structure.length; i++){
 			System.out.println(tree.structure[i].id);
 		}
+
+		Tree tree = new Tree(nodes);
+			
+		for( int i = 0; i < tree.structure.length; i++){
+			System.out.println(tree.structure[i].id);
+		}
+
 		
 		System.out.println("-----DONE-------");
-	}
-/**	
+}
+	
 	@Test
 	public  void testTwoArrayConstructor(){
 		System.out.println("-----TC2-------");
@@ -64,7 +85,7 @@ public class TreeTests {
 			nodes[i] = new Node(Integer.toString(i));
 			nodes2[i] = new Node(Integer.toString(i) + " 2");
 		}
-		
+
 		//Tree tree = new Tree(nodes,nodes2);
 
 		//System.out.println(tree.structure.length);
@@ -81,6 +102,16 @@ public class TreeTests {
 			
 		}
 		
+=======
+//		Tree tree = new Tree(nodes,nodes2);
+//
+//		System.out.println(tree.structure.length);
+//		for( int i = 0; i < tree.structure.length; i++){
+//			
+//			System.out.println(Integer.toString(i) + " " + tree.structure[i]);
+//			//System.out.println(tree.structure[i + 1].parent.id);
+//		}
+
 		System.out.println("-----DONE-------");
 	}		
 **/
