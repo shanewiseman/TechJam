@@ -12,7 +12,8 @@ public class SocketNodes {
      * Runs the server node.
      */
     public static void main(String[] args) throws IOException {
-        SocketServerPool.START();
+        final int numOfNodes = Integer.valueOf(args[0]);
+        SocketServerPool.START(numOfNodes);
     }
 }
 

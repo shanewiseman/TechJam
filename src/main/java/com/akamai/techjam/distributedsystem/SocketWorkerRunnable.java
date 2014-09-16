@@ -26,16 +26,13 @@ public class SocketWorkerRunnable implements Runnable {
             String request = "";
             final InputStream in = socket.getInputStream();
             for (int b = 0; b!=10;) {
-                request += (char) b;
+                if (String.valueOf((char) b) != "\u0000") {
+                   request += (char) b;
+                }
                 b = in.read();
             }
 
-            final String goToNode;
-            if (!request.isEmpty() && request.length() <= 9) {
-                goToNode = coreNode.get(request);
-            } else {
-                goToNode = "";
-            }
+            final String goToNode = coreNode.get(request);
 
             String responseString = "";
             if (goToNode.equals(coreNode.getId())) {

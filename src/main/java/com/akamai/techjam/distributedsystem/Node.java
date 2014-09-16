@@ -70,7 +70,7 @@ public class Node {
 		this.id = id;
 		nodes = Lists.newArrayList(this.id);
 		cache = CacheBuilder.newBuilder()
-                .maximumSize(100)
+                .maximumSize(100000)
                 .expireAfterWrite(10, TimeUnit.MINUTES)
                 .build(new CacheLoader<String, String>() {
                     @Override

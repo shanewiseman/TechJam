@@ -36,7 +36,7 @@ public class TreeTests {
 		for(int j = 0; j < 10; j++ ){
 			System.out.println( trees[j].digestPeeringPeer().id);
 		}
-		trees[1].deletePeer(nodes[1]);
+//		trees[1].deletePeer(nodes[1]);
 		System.out.println("");
 		for(int j = 0; j < 10; j++ ){
 			System.out.println( trees[j].digestPeeringPeer().id);

@@ -12,6 +12,9 @@ public class SocketServerThread implements Runnable {
 
     private Integer portNumber;
     private Node coreNode;
+    private ServerSocket listener = null;
+    private boolean isStopped = false;
+    private Thread runningThread = null;
 
     public SocketServerThread(final Integer portNumber, final Node coreNode) {
         this.portNumber = portNumber;
@@ -21,15 +24,30 @@ public class SocketServerThread implements Runnable {
 
     @Override
     public void run() {
-        ServerSocket listener;
+        synchronized(this){
+            this.runningThread = Thread.currentThread();
+        }
         try {
-            listener = new ServerSocket(this.portNumber);
-            while (true) {
+            this.listener = new ServerSocket(this.portNumber);
+            while (! isStopped()) {
                 final Socket socket = listener.accept();
                 new Thread(new SocketWorkerRunnable(socket, coreNode)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private synchronized boolean isStopped() {
+        return this.isStopped;
+    }
+
+    public synchronized void stop(){
+        this.isStopped = true;
+        try {
+            this.listener.close();
+        } catch (IOException e) {
+            throw new RuntimeException("Error stopping the socket server", e);
         }
     }
 }
